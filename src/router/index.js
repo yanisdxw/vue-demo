@@ -4,6 +4,7 @@ import UserList from '../views/UserList.vue'
 import UserProfile from '../views/UserProfile.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 
 const routes = [
   {
@@ -12,12 +13,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/userList',
+    path: '/userlist',
     name: 'UserList',
     component: UserList
   },
   {
-    path: '/userProfile',
+    path: '/userprofile',
     name: 'UserProfile',
     component: UserProfile
   },
@@ -31,6 +32,15 @@ const routes = [
     name: 'RegisterView',
     component: RegisterView
   },
+  {
+    path: '/404',
+    name: '404',
+    component: NotFoundView
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/404'
+  }
 ]
 
 const router = createRouter({
