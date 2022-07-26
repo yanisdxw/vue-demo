@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 import ModuleUser from './user';
 
 export default createStore({
@@ -17,4 +17,4 @@ export default createStore({
     modules: {
         user: ModuleUser
     }
-})
+});

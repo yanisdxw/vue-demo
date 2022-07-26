@@ -1,3 +1,6 @@
+import $ from 'jquery'
+import jwt_decode from 'jwt-decode'
+
 const ModuleUser = {
     state: {
         user: {
@@ -8,17 +11,41 @@ const ModuleUser = {
         }
     },
     getters: {
-        fullname(state){
-            return state.user.firstname +" "+ state.user.lastname
-        }
+
     },
     mutations:{
-        updateUser(state, user){
-            state.user.username = user.username;
-        }
+
     },
     actions: {
-
+        login(context, data){
+            $.ajax({
+                url: "/api/token/",
+                type: "POST",
+                data: {
+                    username: data.username,
+                    password: data.password
+                },
+                success(resp){
+                    console.log(resp);
+                    const { access, refresh } = resp;
+                    console.log(refresh);
+                    const access_obj = jwt_decode(access);
+                    $.ajax({
+                        url: "/myspace/getinfo/",
+                        type: "GET",
+                        data: {
+                            user_id : access_obj.user_id,
+                        },
+                        headers: {
+                            'Authorization': "Bearer " + access
+                        },
+                        success(resp){
+                            console.log(resp);
+                        }
+                    })
+                }
+            })
+        }
     },
     modules: {
 

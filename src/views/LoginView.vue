@@ -23,6 +23,7 @@
 // @ is an alias to /src
 import ContentBase from '../components/ContentBase.vue'
 import { ref } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
   name: 'LoginView',
@@ -30,13 +31,25 @@ export default {
     ContentBase
   },
   setup(){
+    const store = useStore();
+
     let username = ref('');
     let password = ref('');
     let errorMessage = ref('');
 
     const login = ()=>{
-      console.log(username.value, password.value);
-    }
+      console.log(store);
+      store.dispatch("login", {
+        username: username.value,
+        password: password.value,
+        success(){
+          console.log("success");
+        },
+        error(){
+          console.log("failed");
+        }
+      });
+    };
 
     return {
       username,
